@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -93,7 +94,6 @@
   <ItemGroup>
     <Compile Include="CodeGenerators\CSharpGenerator.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
-    <Compile Include="Helpers\Writer.cs" />
     <Compile Include="ObjectModel\Attribute.cs" />
     <Compile Include="ObjectModel\Model.cs" />
     <Compile Include="Program.cs" />

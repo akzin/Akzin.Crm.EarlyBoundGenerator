@@ -48,9 +48,10 @@ namespace Akzin.Crm.EarlyBoundGenerator
 
                 var model = new Model(entityMetadata, options.Namespace);
                 var generator = new Generator(model);
-                var content = generator.Generate();
-
-                File.WriteAllText(Path.Combine(options.DirectoryWithDirectorySeparator, $"{model.LogicalName.ToPascalCase()}.Generated.cs"), content);
+                options.Directory.Create();
+                var outputFile = new FileInfo(Path.Combine(options.Directory.FullName, $"{model.LogicalName.ToPascalCase()}.Generated.cs"));
+                using var streamWriter = outputFile.CreateText();
+                generator.Generate(streamWriter);
             }
         }
 
@@ -66,17 +67,7 @@ namespace Akzin.Crm.EarlyBoundGenerator
             public string[] EntitiesList => Entities.Split(',', ';');
 
             [Option(shortName: 'd', longName: "directory", Required = true)]
-            public string Directory { get; set; }
-
-            public string DirectoryWithDirectorySeparator
-            {
-                get
-                {
-                    if (Directory.EndsWith(Path.DirectorySeparatorChar.ToString()))
-                        return Directory;
-                    return Directory + Path.DirectorySeparatorChar;
-                }
-            }
+            public DirectoryInfo Directory { get; set; }
 
             [Option(shortName: 'n', longName: "namespace", Required = true)]
             public string Namespace { get; set; }
